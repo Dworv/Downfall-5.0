@@ -11,3 +11,6 @@ class Role:
 
 class Guild:
     ID = 10101010101010101
+
+class Color:
+    MAIN = 0x702963
