@@ -1,6 +1,5 @@
 # Additions
 *.code-workspace
-
 config.py
 
 # Byte-compiled / optimized / DLL files
