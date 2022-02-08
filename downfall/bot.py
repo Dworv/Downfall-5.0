@@ -8,9 +8,8 @@ import random
 import interactions
 # local imports
 import config
-from secret import bot_secret
 
-bot = interactions.Client(token=bot_secret)
+bot = interactions.Client(token=config.KEY)
 
 
 
