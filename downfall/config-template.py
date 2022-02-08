@@ -14,3 +14,4 @@ class Guild:
 
 class Color:
     MAIN = 0x702963
+    ERROR = 0xC71585
