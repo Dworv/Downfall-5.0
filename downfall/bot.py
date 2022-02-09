@@ -2,10 +2,7 @@
 # the bot file :D
 # never give up!
 
-
 import interactions, config, os
-import cogs.utils
-import tools.embed
 
 # create bot instance
 bot = interactions.Client(token=config.KEY)
