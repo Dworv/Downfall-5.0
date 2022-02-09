@@ -42,7 +42,7 @@ class Utils(interactions.Extension):
         ]
     )
     async def roll_dice(self, ctx: interactions.CommandContext, sides: str):
-        await ctx.send(embeds=create_info_embed(description=f"You rolled a **{random.randint(int(sides))} from a {sides} sided dice**!"))
+        await ctx.send(embeds=create_info_embed(description=f"You rolled a **{random.randint(1, int(sides))}** from a **{sides}** sided dice!"))
 
 def setup(client: interactions.Client):
     Utils(client)
