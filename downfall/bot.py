@@ -20,5 +20,5 @@ async def on_ready():
     print("Bot is ready!")
 
 for cog in cog_names:
-    bot.load("cogs." + cog)
+    bot.load(f'cogs.{cog}')
 bot.start()
