@@ -6,20 +6,12 @@ import config
 from tools import embed, check
 
 
-
-class Utils(interactions.Extension):
+class Gambling(interactions.Extension):
 
     def __init__(self, client: interactions.Client):
         self.client: interactions.Client = client
 
-    @interactions.extension_command(
-        name="ping", 
-        description="Pings the bot", 
-        scope=[config.Guild.ID]
-    )
-    async def ping(self, ctx: interactions.CommandContext):
-        await ctx.send(embeds=embed.create_info_embed(description="Pong!"))
-
+    # coin flip
     @interactions.extension_command(
         name="coin-flip", 
         description="Flips a coin", 
@@ -28,8 +20,29 @@ class Utils(interactions.Extension):
         if illegal := check.illegal_commmand_channel(ctx.channel_id):
             await ctx.send(embeds=illegal, ephemeral=True)
             return
-        await ctx.send(embeds=embed.create_info_embed(description=f"You flipped a coin and got **{random.choice(['heads', 'tails'])}**!"))
+        embeds = embed.create_info_embed(
+            description=f"You flipped a coin and got **{random.choice(['heads', 'tails'])}**!"
+        )
+        components = interactions.Button(
+            custom_id = "gambling-coin-again",
+            style = interactions.ButtonStyle.PRIMARY,
+            label = "Flip Again",
+        )
+        await ctx.send(embeds=embeds, components=components)
     
+    @interactions.extension_component('gambling-coin-again')
+    async def coin_flip_again(self, ctx: interactions.ComponentContext):
+        embeds = embed.create_info_embed(
+            description=f"You flipped another coin and got **{random.choice(['heads', 'tails'])}**!"
+        )
+        components = interactions.Button(
+            custom_id = "gambling-coin-again",
+            style = interactions.ButtonStyle.PRIMARY,
+            label = "Flip Again",
+        )
+        await ctx.send(embeds=embeds, components=components)
+
+    # dice roll
     dice_sides = ['4', '6', '8', '10', '12', '20']
     @interactions.extension_command(
         name="roll-dice", 
@@ -49,7 +62,8 @@ class Utils(interactions.Extension):
         if illegal := check.illegal_commmand_channel(ctx.channel_id):
             await ctx.send(embeds=illegal, ephemeral=True)
             return
-        await ctx.send(embeds=embed.create_info_embed(description=f"You rolled a **{random.randint(1, int(sides))}** from a **{sides}** sided dice!"))
+        embeds = embed.create_info_embed(description=f"You rolled a **{random.randint(1, int(sides))}** from a **{sides}** sided dice!")
+        await ctx.send(embeds=embeds)
 
 def setup(client: interactions.Client):
-    Utils(client)
+    Gambling(client)
