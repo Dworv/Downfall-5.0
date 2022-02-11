@@ -1,5 +1,7 @@
 
 KEY = 'TOKEN'
+ICON = 'https://i.imgur.com/nEatfh9.png'
+path = 'PATH' # user double back slashes if on windows, singles for mac. p.s: the folder of downfall, not lapsus. eg: 'C:\\coding\\lapsus\\downfall'
 
 class Channel:
     REVIEWING = 10101010101010101
