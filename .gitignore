@@ -1,6 +1,7 @@
 # Additions
 *.code-workspace
 config.py
+downfall.db
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
