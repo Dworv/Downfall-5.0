@@ -4,7 +4,7 @@ import interactions
 import config
 
 
-def create_info_embed(text: str, items: dict = None):
+def create_info_embed(text: str, items: dict = None) -> interactions.Embed:
     if items:
         description = ('\n```'
         + '\n'.join(f"{k}: {v}" for k, v in items.items())
@@ -19,9 +19,9 @@ def create_info_embed(text: str, items: dict = None):
         ),
     )
 
-def create_error_embed(description: str):
+def create_error_embed(text: str) -> interactions.Embed:
     return interactions.Embed(
-        description = description, 
+        description = text, 
         color = config.Color.ERROR,
         timestamp = str(datetime.now()),
         footer = interactions.EmbedFooter(
