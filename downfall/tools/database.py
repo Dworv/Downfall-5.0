@@ -96,5 +96,3 @@ def delete_application(application_id):
         con.commit()
     except:
         return DBFail("Failed to delete application.")
-
-new_application(1234234, 'asdfdf', True)

@@ -3,7 +3,7 @@ import interactions
 
 import config
 from tools.embed import create_info_embed, create_error_embed
-from tools import check
+from tools import check, database
 
 
 class Applications(interactions.Extension):
@@ -31,9 +31,15 @@ class Applications(interactions.Extension):
         ]
     )
     async def apply_command(self, ctx: interactions.CommandContext, url: str, prerecs: bool):
+        # Checks for legality
         if illegal := check.illegal_commmand_channel(ctx.channel_id):
             await ctx.send(embeds=illegal, ephemeral=True)
             return
+        # Adds to database
+        if failure := database.new_application(ctx.author.user.id, url, prerecs):
+            await ctx.send(embeds=failure.embeds, ephemeral=True)
+            return
+        # Creates the embed
         embeds = create_info_embed(
             'Your application has been submitted!',
             items = {
@@ -42,6 +48,7 @@ class Applications(interactions.Extension):
                 'Applicant': f'{ctx.author.user.username}#{ctx.author.user.discriminator}',
             }
         )
+        # Sends the embed
         await ctx.send(embeds=embeds)
 
 
