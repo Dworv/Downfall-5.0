@@ -1,5 +1,6 @@
 
 import sqlite3
+from tools.embed import create_error_embed
 
 con = sqlite3.connect('C:/Dworv Stuff/Coding/lapsus/downfall/downfall.db')
 c = con.cursor()
@@ -7,6 +8,7 @@ c = con.cursor()
 class DBFail:
     def __init__(self, message):
         self.message = message
+        self.embeds = create_error_embed(self.message)
     
     def __bool__(self):
         return False
@@ -61,10 +63,11 @@ class ApplicationTrait:
     STATUS = 'status'
     USER_ID = 'user_id'
     URL = 'url'
+    PRERECS = 'prerecs'
 
-async def new_application(user_id, url):
+async def new_application(user_id, url, prerecs):
     try:
-        c.execute("INSERT INTO applications (status, user_id, url) VALUES (?, ?)", (-1, user_id, url))
+        c.execute("INSERT INTO applications (status, user_id, url, prerecs) VALUES (?, ?, ?, ?)", (-1, user_id, url, prerecs))
         con.commit()
     except:
         return DBFail("Failed to create application.")
