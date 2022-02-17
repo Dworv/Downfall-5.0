@@ -32,9 +32,7 @@ class Gambling(interactions.Extension):
     
     @interactions.extension_component('gambling-coin-again')
     async def coin_flip_again(self, ctx: interactions.ComponentContext):
-        embeds = embed.create_info_embed(
-            description=f"You flipped another coin and got **{random.choice(['heads', 'tails'])}**!"
-        )
+        embeds = embed.create_info_embed(f"You flipped another coin and got **{random.choice(['heads', 'tails'])}**!")
         components = interactions.Button(
             custom_id = "gambling-coin-again",
             style = interactions.ButtonStyle.PRIMARY,
@@ -62,7 +60,7 @@ class Gambling(interactions.Extension):
         if illegal := check.illegal_commmand_channel(ctx.channel_id):
             await ctx.send(embeds=illegal, ephemeral=True)
             return
-        embeds = embed.create_info_embed(description=f"You rolled a **{random.randint(1, int(sides))}** from a **{sides}** sided dice!")
+        embeds = embed.create_info_embed(f"You rolled a **{random.randint(1, int(sides))}** from a **{sides}** sided dice!")
         await ctx.send(embeds=embeds)
 
 def setup(client: interactions.Client):
