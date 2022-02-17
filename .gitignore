@@ -2,6 +2,7 @@
 *.code-workspace
 config.py
 downfall.db
+*.db-journal
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
