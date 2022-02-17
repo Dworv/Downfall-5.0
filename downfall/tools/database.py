@@ -2,7 +2,7 @@
 import sqlite3
 from tools.embed import create_error_embed
 
-con = sqlite3.connect('C:/Dworv Stuff/Coding/lapsus/downfall/downfall.db')
+con = sqlite3.connect('C:/Dworv Stuff/Coding/lapsus/downfall/downfall.db', timeout = 2)
 c = con.cursor()
 
 class DBFail:
