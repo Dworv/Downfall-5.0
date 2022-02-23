@@ -1,12 +1,11 @@
 
-from logging.config import stopListening
-
-
-def cid_to_dict(custom_id) -> dict:
-    split = custom_id.split('?')
-    if len(split) == 1:
+def custom_to_dict(custom_id) -> dict:
+    split: list = custom_id.split('?')
+    entry_count = len(split) - 1
+    if not entry_count:
         return {'base': custom_id}
-    for 
-
-print(cid_to_dict('my man'))
-print(cid_to_dict('my man?bruh=hello'))
+    entries = {'base': split.pop(0)}
+    for entry in split:
+        name, value = entry.split('=')
+        entries[name] = value
+    return entries
