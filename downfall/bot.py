@@ -2,10 +2,13 @@
 # the bot file :D
 # never give up!
 
-import interactions, config, os
+import interactions, config, os, logging
 
 # create bot instance
 bot = interactions.Client(token=config.KEY)
+
+# logging
+# logging.basicConfig(level=logging.DEBUG)
 
 # get all cog names
 cog_names = [
