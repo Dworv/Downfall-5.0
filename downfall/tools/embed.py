@@ -21,7 +21,7 @@ def create_info_embed(text: str, items: dict = None) -> interactions.Embed:
 
 def create_error_embed(text: str) -> interactions.Embed:
     return interactions.Embed(
-        description = text, 
+        description = f'ERROR: **{text}**', 
         color = config.Color.ERROR,
         footer = interactions.EmbedFooter(
             text = "Downfall Editing · Dworv#0001",
