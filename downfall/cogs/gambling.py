@@ -3,7 +3,7 @@ import random
 import interactions 
 
 import config
-from tools import embed, check
+from tools import embed, check, component
 
 
 class Gambling(interactions.Extension):
@@ -61,7 +61,26 @@ class Gambling(interactions.Extension):
             await ctx.send(embeds=illegal, ephemeral=True)
             return
         embeds = embed.create_info_embed(f"You rolled a **{random.randint(1, int(sides))}** from a **{sides}** sided dice!")
-        await ctx.send(embeds=embeds)
+        button = interactions.Button(
+            label = 'Roll Again',
+            custom_id = component.encode_custom_id('gambling-dice-again', {'sides': sides})
+        )
+        await ctx.send(embeds=embeds, components=button)
+
+    @interactions.extension_listener()
+    async def on_component(ctx: interactions.ComponentContext):
+        try: name, entries = component.decode_custom_id(ctx.data.custom_id)
+        except: pass
+        if name == 'gambling-dice-again':
+            embeds = embed.create_info_embed(f"You rolled again and got a **{random.randint(1, int(entries['sides']))}** from a **{entries['sides']}** sided dice!")
+            button = interactions.Button(
+                label = 'Roll Again',
+                custom_id = component.encode_custom_id('gambling-dice-again', entries)
+            )
+            await ctx.send(embeds=embeds, components=button)
+
+            
+
 
 def setup(client: interactions.Client):
     Gambling(client)
