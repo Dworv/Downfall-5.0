@@ -68,7 +68,7 @@ class Gambling(interactions.Extension):
         await ctx.send(embeds=embeds, components=button)
 
     @interactions.extension_listener()
-    async def on_component(ctx: interactions.ComponentContext):
+    async def on_component(self, ctx: interactions.ComponentContext):
         try: name, entries = component.decode_custom_id(ctx.data.custom_id)
         except: pass
         if name == 'gambling-dice-again':
