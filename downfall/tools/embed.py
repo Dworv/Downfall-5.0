@@ -1,5 +1,5 @@
 
-from tkinter import N
+import time
 import interactions
 import config
 
@@ -27,7 +27,6 @@ def create_info_embed(text: str, items: dict = None) -> interactions.Embed:
             ),
         )
     
-
 def create_error_embed(text: str) -> interactions.Embed:
     return interactions.Embed(
         description = f'ERROR: **{text}**', 
@@ -39,6 +38,7 @@ def create_error_embed(text: str) -> interactions.Embed:
     )
 
 def create_review_embeds(url, old_level, new_level, applicant_name, reviewer_name, thoughts, pros, procons, cons):
+
     reapp = old_level == new_level
 
     images = [
@@ -85,3 +85,53 @@ def create_review_embeds(url, old_level, new_level, applicant_name, reviewer_nam
         color=config.Color.MAIN
     )
     return [header_embed, thoughts_embed, procons_embed]
+
+def create_user_info_embed(user: interactions.Member, user_db):
+    return interactions.Embed(
+        title="User Profile",
+        color=config.Color.MAIN,
+        author=interactions.EmbedAuthor(
+            name=f"{user.user.username}#{user.user.discriminator}",
+            icon_url=user.user.avatar_url
+        ),
+        fields=[
+            interactions.EmbedField(
+                name='Joined',
+                value=
+                '<t:'+ 
+                str(int(time.mktime(user.joined_at.timetuple())))+ 
+                ':R>',
+                inline=True
+            ),
+            interactions.EmbedField(
+                name='Nick',
+                value=str(user.nick),
+                inline=True
+            ),
+            interactions.EmbedField(
+                name='Id',
+                value=str(user.id),
+                inline=True
+            ),
+            interactions.EmbedField(
+                name='Bio',
+                value=str(user_db[2]),
+                inline=False
+            ),
+            interactions.EmbedField(
+                name='Boosting',
+                value=str(bool(user.user.premium_type)),
+                inline=True
+            ),
+            interactions.EmbedField(
+                name='Editor Level',
+                value=str(user_db[1]),
+                inline=True
+            ),
+            interactions.EmbedField(
+                name='YouTube',
+                value=str(user_db[3]),
+                inline=True
+            ),
+        ]
+    )
