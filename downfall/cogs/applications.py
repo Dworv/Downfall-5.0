@@ -2,7 +2,10 @@
 import interactions
 
 import config
-from tools.embed import create_info_embed, create_error_embed, create_review_embeds
+from tools.embed import (
+    create_info_embed, 
+    create_error_embed, 
+    create_review_embeds)
 from tools import check, database, component
 
 
