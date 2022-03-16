@@ -9,6 +9,7 @@ class DBFail:
     def __init__(self, message):
         self.message = message
         self.embeds = create_error_embed(self.message)
+        self._json = self.embeds._json
 
 # user stuff
 
@@ -27,7 +28,7 @@ def new_user(user_id, editor_level, youtube, bio):
 
 def modify_user(user_id, trait, entry):
     try:
-        c.execute("UPDATE users SET ? = ? WHERE user_id = ?", [trait, entry, int(user_id)])  
+        c.execute(f"UPDATE users SET {trait} = ? WHERE user_id = ?", [entry, int(user_id)])  
         con.commit()
     except:
         return DBFail("Failed to modify user.")
